@@ -1,12 +1,11 @@
 import pygame
 import math
-import Simulation.dynamic_model as dynamic_model
+#import Simulation.dynamic_model as dynamic_model
 
-# ขนาดหน้าจอ
+# Sizescreen
 width = 800
 height = 400
 
-# เริ่มต้น Pygame
 pygame.init()
 screen = pygame.display.set_mode((width, height))
 pygame.display.set_caption("Simulation inverted pendulum on cart")
@@ -18,18 +17,18 @@ Blue = (52, 152, 219)
 Orange = (240, 178, 122)
 Red = (241, 148, 138)
 
-# ตัวแปรสำหรับ Inverted Pendulum
-cart_x = width // 2  # ตำแหน่ง Cart บนแกน x (กลางหน้าจอ)
-cart_y = height // 2  # ตำแหน่ง Cart บนแกน y
-cart_width = 100  # ความกว้าง Cart
-cart_height = 20  # ความสูง Cart
+# Variable Inverted Pendulum
+cart_x = width // 2  # Position Cart on x (กลางหน้าจอ)
+cart_y = height // 2  # Position Cart on y
+cart_width = 100  # width Cart (m)
+cart_height = 20  # height Cart (m)
 
-pendulum_length = 150  # ความยาวของ Pendulum
-pendulum_angle = math.pi / 4  # มุมเริ่มต้น (45 องศา)
-angular_velocity = 0  # ความเร็วเชิงมุมเริ่มต้น
-angular_acceleration = 0  # ความเร่งเชิงมุมเริ่มต้น
-gravity = 9.8  # แรงโน้มถ่วง
-time_step = 0.02  # Δt
+pendulum_length = 150  # ความยาวของ Pendulum (m)
+pendulum_angle = math.pi / 4  # มุมเริ่มต้น pi/4 Radian(rad) / 45 degree
+angular_velocity = 0  # ความเร็วเชิงมุมเริ่มต้น (rad)
+angular_acceleration = 0  # ความเร่งเชิงมุมเริ่มต้น (rad/s^2)
+gravity = 9.8125  # แรงโน้มถ่วง (m/s^2)
+time_step = 0.02  # Δt (s)
 
 # ตั้งค่าให้หน้าจอไม่ปิดทันที
 running = True
