@@ -1,49 +1,49 @@
+import numpy as np
+
 class energy_controller:
     """
-    PID Controller implementation for control systems.
-    Implements a discrete-time PID controller with anti-windup protection.
+    Energy-based Controller implementation for control systems.
+    This controller regulates the system's energy to achieve desired behavior.
     """
     def __init__(self, k):
         # Controller gains
-        self.kp = k # Controller gain
+        self.k = k  # Proportional gain for energy control
         
         # State variables
-        self.y_n = 0.0    # Current output
-        self.y_n_1 = 0.0  # Previous output
-        self.e_n = 0.0    # Current error
-        self.e_n_1 = 0.0  # Previous error
-        self.e_n_2 = 0.0  # Error from two steps ago
+        self.y = 0.0    # Output control signal
+        self.e = 0.0    # Energy error (difference between current and desired energy)
 
-    def update_pid(self, error, pid_sat):
+    def update_controller(self, e, e_d, theta, theta_dot, sat):
         """
-        Updates PID controller output based on error input.
+        Updates the control signal based on energy regulation principle.
         
         Args:
-            error: Current error (setpoint - measured_value)
-            pid_sat: Output saturation limits (±pid_sat)
+            e (float): Current system energy
+            e_d (float): Desired system energy
+            theta (float): Current pendulum angle (in radians)
+            theta_dot (float): Angular velocity of pendulum
+            sat (float): Saturation limit for control signal
         
         Returns:
-            float: Controller output
+            float: Computed control signal (force input to the system)
         """
-        e_n = error  # Current error sample
-
-        # Anti-windup logic:
-        # Only update controller if:
-        # 1. Output is not saturated, or
-        # 2. Error is trying to reduce the output
-        if not ((self.y_n >= pid_sat and e_n > 0) or (self.y_n <= -pid_sat and e_n < 0)):
-            # PID equation in discrete form:
-            self.y_n += ((self.kp + self.ki + self.kd) * e_n) - ((self.kp + (2 * self.kd)) * self.e_n_1) + (self.kd * self.e_n_2)
-
-        # Update error history for next iteration
-        self.e_n_2 = self.e_n_1
-        self.e_n_1 = e_n
-        self.e_n = e_n
-
+        # Determine direction of energy injection
+        if e < e_d:
+            sign = 1
+        elif e > e_d:
+            sign = 0
+        
+        # Calculate control signal:
+        # - (e - e_d): Energy error
+        # - theta_dot * cos(theta): Energy injection term
+        # - sign: Ensures energy is only injected when needed
+        # - k: Control gain to adjust response
+        self.y = self.k * (e - e_d) * sign * theta_dot * np.cos(theta)
+        
         # Saturate output to prevent excessive control signals
-        if self.y_n > pid_sat:
-            self.y_n = pid_sat
-        elif self.y_n < -pid_sat:
-            self.y_n = -pid_sat
-
-        return self.y_n
+        if self.y > sat:
+            self.y = sat
+        # elif self.y <= 0:
+        #     self.y = 0
+        
+        return self.y

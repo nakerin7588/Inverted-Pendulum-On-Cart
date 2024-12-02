@@ -1,4 +1,4 @@
-class PID:
+class PID_controller:
     """
     PID Controller implementation for control systems.
     Implements a discrete-time PID controller with anti-windup protection.
@@ -16,13 +16,13 @@ class PID:
         self.e_n_1 = 0.0  # Previous error
         self.e_n_2 = 0.0  # Error from two steps ago
 
-    def update_pid(self, error, pid_sat):
+    def update_controller(self, error, sat):
         """
         Updates PID controller output based on error input.
         
         Args:
             error: Current error (setpoint - measured_value)
-            pid_sat: Output saturation limits (±pid_sat)
+            at: Output saturation limits (±sat)
         
         Returns:
             float: Controller output
@@ -33,7 +33,7 @@ class PID:
         # Only update controller if:
         # 1. Output is not saturated, or
         # 2. Error is trying to reduce the output
-        if not ((self.y_n >= pid_sat and e_n > 0) or (self.y_n <= -pid_sat and e_n < 0)):
+        if not ((self.y_n >= sat and e_n > 0) or (self.y_n <= -sat and e_n < 0)):
             # PID equation in discrete form:
             self.y_n += ((self.kp + self.ki + self.kd) * e_n) - ((self.kp + (2 * self.kd)) * self.e_n_1) + (self.kd * self.e_n_2)
 
@@ -43,9 +43,9 @@ class PID:
         self.e_n = e_n
 
         # Saturate output to prevent excessive control signals
-        if self.y_n > pid_sat:
-            self.y_n = pid_sat
-        elif self.y_n < -pid_sat:
-            self.y_n = -pid_sat
+        if self.y_n > sat:
+            self.y_n = sat
+        elif self.y_n < -sat:
+            self.y_n = -sat
 
         return self.y_n
