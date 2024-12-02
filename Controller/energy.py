@@ -27,23 +27,20 @@ class energy_controller:
         Returns:
             float: Computed control signal (force input to the system)
         """
-        # Determine direction of energy injection
-        if e < e_d:
-            sign = 1
-        elif e > e_d:
-            sign = 0
-        
         # Calculate control signal:
         # - (e - e_d): Energy error
         # - theta_dot * cos(theta): Energy injection term
         # - sign: Ensures energy is only injected when needed
         # - k: Control gain to adjust response
-        self.y = self.k * (e - e_d) * sign * theta_dot * np.cos(theta)
+        self.y = self.k * (e - e_d) * np.sign(theta_dot * np.cos(theta))
         
         # Saturate output to prevent excessive control signals
         if self.y > sat:
             self.y = sat
-        # elif self.y <= 0:
+        elif self.y <= 0:
+            self.y = 0
+        
+        # if self.y <= sat:
         #     self.y = 0
         
         return self.y
