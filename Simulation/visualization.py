@@ -8,8 +8,8 @@ def map_pixel_to_meter(x):
     return x / 100
 
 # Sizescreen
-width = 1600 # Pixels
-height = 800 # Pixels
+width = 1000 # Pixels
+height = 600 # Pixels
 
 pygame.init()
 pygame.font.init()
@@ -26,6 +26,7 @@ Green = (118, 215, 196)
 Blue = (52, 152, 219)
 Orange = (240, 178, 122)
 Red = (241, 148, 138)
+White = (253, 254, 254)
 
 # Variable Inverted Pendulum
 cart_x = width // 2  # Position Cart on x (กลางหน้าจอ)
@@ -55,7 +56,7 @@ while running:
             running = False
     
     # Calculate actual frame time
-    dt = clock.tick(frame_rate) / 1000.0  # Convert to seconds
+    dt = 1 / frame_rate
     physics_time += dt
     
     # Update physics with fixed time step
@@ -78,8 +79,9 @@ while running:
     screen.fill(Navy)
     
     # Draw time in left corner
-    time_text = font.render(f'Time: {current_time:.2f}s', True, Green)
+    time_text = font.render(f'Time: {current_time:.2f}s', True, White)
     screen.blit(time_text, (10, 10))
+    
 
     # วาด Cart
     cart_rect = pygame.Rect(int(cart_x - cart_width // 2), int(cart_y - cart_height // 2), cart_width, cart_height)
