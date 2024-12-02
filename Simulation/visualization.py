@@ -50,11 +50,19 @@ state = [cart_x, 0.0, pendulum_angle, 0.0]  # Initial state: [x, x_dot, theta, t
 # ตั้งค่าให้หน้าจอไม่ปิดทันที
 running = True
 
+ts = pygame.time.get_ticks() + (time_step*1000)
+
 # Main Loop
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # ตรวจสอบว่าเรากดปิดหน้าต่างหรือไม่
             running = False
+    
+    
+    
+    if pygame.time.get_ticks() > ts:
+        ts = pygame.time.get_ticks() + int*(time_step*1000)
+        print(f'Time step is too small: {ts}')
     
     # Calculate actual frame time
     dt = 1 / frame_rate
