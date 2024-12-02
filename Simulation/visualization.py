@@ -15,7 +15,7 @@ pygame.init()
 pygame.font.init()
 font = pygame.font.SysFont('Arial', 24)
 start_time = pygame.time.get_ticks()  # Get initial time in milliseconds
-icon = pygame.image.load('Simulation/owl.png')
+icon = pygame.image.load('Images/owl.png')
 screen = pygame.display.set_mode((width, height))
 clock = pygame.time.Clock()
 pygame.display.set_icon(icon)
