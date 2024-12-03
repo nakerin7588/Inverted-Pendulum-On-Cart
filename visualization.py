@@ -4,10 +4,12 @@ from Controller.energy import energy_controller
 from Controller.PID import PID_controller
 import Simulation.model as model
 import matplotlib.pyplot as plt  # Add this import
+import button
 
 """
    Pygame initialization 
 """
+
 # Sizescreen
 width = 1000 # Pixels
 height = 600 # Pixels
@@ -28,6 +30,16 @@ icon = pygame.image.load('Images/owl.png')
 clock = pygame.time.Clock()
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Simulation inverted pendulum on cart")
+
+app_paused = False
+
+start_img = pygame.image.load('Images/start.png').convert_alpha()
+stop_img = pygame.image.load('Images/stop.png').convert_alpha()
+reset_img = pygame.image.load('Images/reset.png').convert_alpha()
+
+start_button = button.Button(250, 450, start_img, 0.125)
+stop_button = button.Button(500, 450, stop_img, 0.125)
+reset_button = button.Button(750, 450, reset_img, 0.125)
 
 # Color code
 Navy = (52, 73, 94)
@@ -95,6 +107,7 @@ cartvel_controller = PID_controller(kp=30.0, ki=5.0, kd=0.0)
 velocity_data = []    # Store velocity values
 setpoint_data = []    # Store setpoint values
 time_data = []       # Store time values
+
 
 # Main Loop
 running = True
@@ -189,12 +202,11 @@ while running:
     x_text = font.render(f'x: {state[0]:.2f}s', True, White)
     screen.blit(x_text, (900, 150))
     
-    
     # Check colission
     # ฝากแก้ด้วยให้มันแบบถ้าชนขอบแล้วมีอะไรสักอย่างเกิดขึ้น
     if cart_x_ - cart_width // 2 < 0 or cart_x_ + cart_width // 2 > width:
         running = False
-    
+        
     # Draw Cart
     cart_rect = pygame.Rect(int(cart_x_ - cart_width // 2), int(cart_y_ - cart_height // 2), cart_width, cart_height)
     pygame.draw.rect(screen, Red, cart_rect)
@@ -203,6 +215,17 @@ while running:
     pygame.draw.line(screen, Green, (int(cart_x_), int(cart_y_)), (int(pendulum_x_), int(pendulum_y_)), 5)  # วาดเส้น Pendulum
     pygame.draw.circle(screen, Orange, (int(pendulum_x_), int(pendulum_y_)), 10)  # วาดปลาย Pendulum
     
+    start_button.draw(screen)
+    stop_button.draw(screen)
+    reset_button.draw(screen)
+    
+    # if start_button.draw(screen):
+    #     app_paused = True
+    # if stop_button.draw(screen):
+    #         pass
+    # if reset_button.draw(screen):
+    #     app_paused = False
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # Check that are we closing the window
             running = False
@@ -210,16 +233,16 @@ while running:
     # Update display
     pygame.display.flip()
 
-# Replace the plotting code after the main loop
-plt.figure(figsize=(10, 6))
-plt.plot(time_data, velocity_data, label='Actual Velocity')
-plt.plot(time_data, setpoint_data, '--', label='Setpoint')
-plt.title('Cart Velocity over Time')
-plt.xlabel('Time (s)')
-plt.ylabel('Velocity (m/s)')
-plt.grid(True)
-plt.legend()
-plt.show()
+# # Replace the plotting code after the main loop
+# plt.figure(figsize=(10, 6))
+# plt.plot(time_data, velocity_data, label='Actual Velocity')
+# plt.plot(time_data, setpoint_data, '--', label='Setpoint')
+# plt.title('Cart Velocity over Time')
+# plt.xlabel('Time (s)')
+# plt.ylabel('Velocity (m/s)')
+# plt.grid(True)
+# plt.legend()
+# plt.show()
 
 # Quit Pygame
 pygame.quit()
