@@ -120,7 +120,9 @@ while running:
     if start_button.draw(screen):
         sim_state = 1
     if stop_button.draw(screen):
-        running = False
+        sim_state = 0
+    if reset_button.draw(screen):
+        sim_state = 0
     
     """
         Controller Update
@@ -152,36 +154,36 @@ while running:
 #     u = -u_sat
 
 # print(u)
-
-    """
-        Model Update
-    """
-    # Update dynamics of Pendulum
-    state = inverted_pen.dynamics(state=state, u=u)
-    cart_x = state[0]
-    pendulum_angle = state[2]
-    
-    # Update Kinematic of Pendulum
-    pendulum_x, pendulum_y = inverted_pen.kinematic(state=state)
-    
-    # Update Energy of Pendulum
-    pendulum_e = inverted_pen.pendulum_energy(state=state)
-    
-    # Add these lines after state update
-    velocity_data.append(state[1])   # Store current velocity
-    setpoint_data.append(1)        # Store setpoint (constant at 1.0)
-    time_data.append(current_time)   # Store current time
-    
-    # Map to pygame scale
-    cart_x_ = cart_x * 100
-    pendulum_x_ = pendulum_x * 100
-    pendulum_y_ = pendulum_y * 100
-    
-    # Map to pygame coordinate
-    pendulum_y_ = cart_y_ - pendulum_y_
-    
-    # Update simulation time
-    current_time = (pygame.time.get_ticks() - start_time) / 1000.0  # Convert to seconds
+    if sim_state == 1:
+        """
+            Model Update
+        """
+        # Update dynamics of Pendulum
+        state = inverted_pen.dynamics(state=state, u=u)
+        cart_x = state[0]
+        pendulum_angle = state[2]
+        
+        # Update Kinematic of Pendulum
+        pendulum_x, pendulum_y = inverted_pen.kinematic(state=state)
+        
+        # Update Energy of Pendulum
+        pendulum_e = inverted_pen.pendulum_energy(state=state)
+        
+        # Add these lines after state update
+        velocity_data.append(state[1])   # Store current velocity
+        setpoint_data.append(1)        # Store setpoint (constant at 1.0)
+        time_data.append(current_time)   # Store current time
+        
+        # Map to pygame scale
+        cart_x_ = cart_x * 100
+        pendulum_x_ = pendulum_x * 100
+        pendulum_y_ = pendulum_y * 100
+        
+        # Map to pygame coordinate
+        pendulum_y_ = cart_y_ - pendulum_y_
+        
+        # Update simulation time
+        current_time = (pygame.time.get_ticks() - start_time) / 1000.0  # Convert to seconds
 
     """
         Simulation update
@@ -193,15 +195,15 @@ while running:
     time_text = font.render(f'Time: {current_time:.2f}s', True, White)
     screen.blit(time_text, (10, 10))
     
-    # Draw time in right corner
+    # Draw Energy in right corner
     e_text = font.render(f'E: {pendulum_e:.2f}s', True, White)
     screen.blit(e_text, (900, 10))
     
-    # Draw time in right corner
+    # Draw degree in right corner
     d_text = font.render(f'd: {pendulum_angle:.2f}s', True, White)
     screen.blit(d_text, (900, 50))
     
-    # Draw time in right corner
+    # Draw velocity in right corner
     v_text = font.render(f'v: {state[1]:.2f}s', True, White)
     screen.blit(v_text, (900, 100))
     
