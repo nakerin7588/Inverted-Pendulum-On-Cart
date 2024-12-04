@@ -31,7 +31,6 @@ clock = pygame.time.Clock()
 pygame.display.set_icon(icon)
 pygame.display.set_caption("Simulation inverted pendulum on cart")
 
-app_paused = False
 
 start_img = pygame.image.load('Images/start.png').convert_alpha()
 stop_img = pygame.image.load('Images/stop.png').convert_alpha()
@@ -111,10 +110,18 @@ time_data = []       # Store time values
 
 # Main Loop
 running = True
+sim_state = 0
+    
 while running:
+    
     timer.tick(f)
     # print(state[1])
     # print(f"Energy: {pendulum_e}")
+    if start_button.draw(screen):
+        sim_state = 1
+    if stop_button.draw(screen):
+        running = False
+    
     """
         Controller Update
     """
@@ -138,14 +145,14 @@ while running:
     
     # Update control input
     u = u_s + u_cp + u_cv
-    
-    # if u > u_sat:
-    #     u = u_sat
-    # elif u < -u_sat:
-    #     u = -u_sat
-    
-    # print(u)
-    
+
+# if u > u_sat:
+#     u = u_sat
+# elif u < -u_sat:
+#     u = -u_sat
+
+# print(u)
+
     """
         Model Update
     """
@@ -175,7 +182,7 @@ while running:
     
     # Update simulation time
     current_time = (pygame.time.get_ticks() - start_time) / 1000.0  # Convert to seconds
-    
+
     """
         Simulation update
     """
@@ -225,11 +232,11 @@ while running:
     #         pass
     # if reset_button.draw(screen):
     #     app_paused = False
-    
+        # elif event.type == pygame.start_button:
+        #     running = True
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:  # Check that are we closing the window
-            running = False
-    
+            if event.type == pygame.QUIT:  # Check that are we closing the window
+                running = False
     # Update display
     pygame.display.flip()
 
