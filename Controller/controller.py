@@ -74,6 +74,6 @@ class controller:
             self.state = "SWINGUP"
             self.u = self.e_controller.update_controller(e, e_d, theta, theta_dot, theta_ddot, 1000.0)
         
-        print(f"Current controller state is {self.state} and Control input is {self.u}")
+        # print(f"Current controller state is {self.state} and Control input is {self.u}")
         
         return self.u
