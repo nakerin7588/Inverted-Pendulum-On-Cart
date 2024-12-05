@@ -77,3 +77,23 @@ class controller:
         # print(f"Current controller state is {self.state} and Control input is {self.u}")
         
         return self.u
+    
+    def reset(self):
+        """
+        Reset the controller states.
+        """
+        self.e_controller.u = 0.0
+        self.e_controller.y = 0.0
+        self.e_controller.e = 0.0
+        self.s_controller.y_n = 0.0
+        self.s_controller.y_n_1 = 0.0
+        self.s_controller.e_n = 0.0
+        self.s_controller.e_n_1 = 0.0
+        self.s_controller.e_n_2 = 0.0
+        self.p_controller.y_n = 0.0
+        self.p_controller.y_n_1 = 0.0
+        self.p_controller.e_n = 0.0
+        self.p_controller.e_n_1 = 0.0
+        self.p_controller.e_n_2 = 0.0
+        self.u = 0.0
+        self.state = "STABILIZE"
