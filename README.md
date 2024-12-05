@@ -14,6 +14,7 @@ Key components of the project include:
 # Equation
 
 
+
 # Usage
 
 To run the simulation follow these steps :
@@ -45,11 +46,18 @@ python visualization.py
 ### 4. Start and Control the Simulation
 * **Start Simulation**
     
-    After the simulation window appears, you will see a Start button. Click on it to begin the simulation.
+    After the simulation window appears, you will see a *Start button*. Click on it to begin the simulation.
     - Initially, the *swing-up controller* will be applied to add energy to the pendulum, attempting to swing it up to an upright position.
     - Next the *PID controller* will attempt to stabilize the pendulum by controlling the cart's movement.
 
 * **Stop Simulation**
     
-    While the simulation is running, you can press the **Stop** button to pause the simulation at any point. This allows you to analyze the system's behavior at that particular moment, including the angle of the pendulum and the position of the cart.
+    While the simulation is running, you can press the *Stop button* to pause the simulation anytime.
+
+### 5.Exit the Simulation
+To exit the simulation, only close the PyGame window.
+
+# Knowledge
+
+
 
