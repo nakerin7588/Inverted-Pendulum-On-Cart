@@ -5,15 +5,21 @@ class energy_controller:
     Energy-based Controller implementation for control systems.
     This controller regulates the system's energy to achieve desired behavior.
     """
-    def __init__(self, k):
+    def __init__(self, m, M, L, k):
+        # Dynamics parameters
+        self.m = m  # Mass of the pendulum
+        self.M = M  # Mass of the cart
+        self.L = L  # Length of the pendulum
+        
         # Controller gains
         self.k = k  # Proportional gain for energy control
         
         # State variables
-        self.y = 0.0    # Output control signal
+        self.y = 0.0    # Output control signal (X_ddot)
+        self.u = 0.0    # Control signal (force input to the system)
         self.e = 0.0    # Energy error (difference between current and desired energy)
 
-    def update_controller(self, e, e_d, theta, theta_dot, sat):
+    def update_controller(self, e, e_d, theta, theta_dot, theta_ddot, sat):
         """
         Updates the control signal based on energy regulation principle.
         
@@ -35,12 +41,12 @@ class energy_controller:
         self.y = self.k * (e - e_d) * np.sign(theta_dot * np.cos(theta))
         
         # Saturate output to prevent excessive control signals
-        if self.y > sat:
-            self.y = sat
-        elif self.y <= 0:
-            self.y = 0
-        
-        # if self.y <= sat:
+        # if self.y > sat:
+        #     self.y = sat
+        # elif self.y <= 0:
         #     self.y = 0
+        
+        # Calculate control signal (force input to the system)
+        self.u = (self.m + self.M)*self.y + self.m*self.L*theta_ddot*np.cos(theta) - self.m*self.L*theta_dot**2*np.sin(theta)
         
         return self.y

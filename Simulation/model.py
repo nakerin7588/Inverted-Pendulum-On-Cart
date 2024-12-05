@@ -25,10 +25,10 @@ class inverted_pendulum:
         Returns:
         np.ndarray: Updated state vector [x, x_dot, theta, theta_dot]
         """
-        if len(state) != 4:
+        if len(state) != 6:
             raise ValueError("State must be a vector of length 4")
             
-        x, x_dot, theta, theta_dot = state
+        x, x_dot, _, theta, theta_dot, _ = state
         
         sin_theta = np.sin(theta)
         cos_theta = np.cos(theta)
@@ -46,7 +46,7 @@ class inverted_pendulum:
         theta = (theta + np.pi) % (2 * np.pi) - np.pi
         # theta = np.mod(theta, 2 * np.pi)
         
-        return np.array([x, x_dot, theta, theta_dot])
+        return np.array([x, x_dot, x_ddot, theta, theta_dot, theta_ddot])
 
     def kinematic(self, state: np.ndarray) -> np.ndarray:
         """
@@ -58,7 +58,7 @@ class inverted_pendulum:
         Returns:
         np.ndarray: Updated kinematic positions [pendulum_x, pendulum_y]
         """
-        x, _, theta, _ = state
+        x, _, _, theta, _, _ = state
         
         # Pendulum end position
         pendulum_x = x + (self.L * np.sin(theta))
@@ -76,7 +76,7 @@ class inverted_pendulum:
         Returns:
         float: Total pendulum energy of the system
         """
-        x, x_dot, theta, theta_dot = state
+        x, x_dot, _, theta, theta_dot, _ = state
         
         cos_theta = np.cos(theta)
         

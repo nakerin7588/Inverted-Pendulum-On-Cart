@@ -164,8 +164,8 @@ def derivatives(state, t):
 	E = energy(_th, _Y)
 
 	# u = get_control(_x, _Z, _th, _Y, E)
-	# u = get_state_control(_x, _Z, _th, _Y, E)
-	u = get_state_control2(_x, _Z, _th, _Y, E, dt)
+	u = get_state_control(_x, _Z, _th, _Y, E)
+	# u = get_state_control2(_x, _Z, _th, _Y, E, dt)
 
 	ds[0] = state[1]
 	ds[1] = (g * sin(_th) - u * cos(_th)) / L
