@@ -37,8 +37,8 @@ stop_img = pygame.image.load('Images/stop.png').convert_alpha()
 reset_img = pygame.image.load('Images/reset.png').convert_alpha()
 
 start_button = button.Button(250, 450, start_img, 0.125)
-stop_button = button.Button(500, 450, stop_img, 0.125)
-reset_button = button.Button(750, 450, reset_img, 0.125)
+stop_button = button.Button(700, 450, stop_img, 0.125)
+# reset_button = button.Button(750, 450, reset_img, 0.125)
 
 # Color code
 Navy = (52, 73, 94)
@@ -58,7 +58,7 @@ cart_x_ = width // 2  # Position Cart on x in pixels
 cart_y_ = height // 2  # Position Cart on y in pixels
 cart_x = cart_x_ / 100  # Position Cart on x in meters
 cart_y = cart_y_ / 100  # Position Cart on y in meters
-cart_width = 100  # width Cart in pixels
+cart_width = 60  # width Cart in pixels
 cart_height = 20  # height Cart in pixels
 cart_mass = 1  # mass Cart (kg)
 
@@ -111,7 +111,6 @@ time_data = []       # Store time values
 # Main Loop
 running = True
 sim_state = 0
-    
 while running:
     
     timer.tick(f)
@@ -121,32 +120,22 @@ while running:
         sim_state = 1
     if stop_button.draw(screen):
         sim_state = 0
-    if reset_button.draw(screen):
-        sim_state = 0
+    # if reset_button.draw(screen):
+    #     sim_state = 0
+    #     cart_x = (width // 2) / 100  # Position Cart on x in meters
+    #     cart_y = (height // 2) / 100  # Position Cart on y in meters
+    #     pendulum_length = 100
+    #     pendulum_angle = np.pi  # Initial angle set to pi radians (downwards)
+    #     state = np.array([cart_x , 0.0, pendulum_angle, 0.0])
+    #     pendulum_x, pendulum_y = inverted_pen.kinematic(state=state)
+    #     pendulum_x_ = pendulum_x * 100 # Position Pendulum on x in pixels
+    #     pendulum_y_ = cart_y_ - pendulum_y * 100 # Position Pendulum on y in pixels
+    #     pendulum_e = 0.0
+    #     current_time = 0
+    #     start_time = pygame.time.get_ticks()
+        
     
-    """
-        Controller Update
-    """
-    if (abs(0 - pendulum_angle) <= np.deg2rad(5)):  # Stabilization condition: pole near upright
-        # Use stabilization controller
-        controller_state = "stabilize"
-        e = pendulum_d - pendulum_angle
-        u_s = stabilize_controller.update_controller(e, sat=10.0)
-        # print(f"Stabilize controller in used u_s={u_s}")
-    else :  # Swing-up condition: pole is far from upright
-        # Use swing-up controller
-        controller_state = "swingup"
-        u_s = swingup_controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[3], sat=30)
-        print(f"Swing-up controller in used u_s={u_s}")
-    
-    # Update cart position controller
-    u_cp = cartpos_controller.update_controller(cart_d - cart_x, sat=30.0)
-    
-    # # Update cart velocity controller
-    # u_cv = cartvel_controller.update_controller(0 - state[1], sat=15.0)
-    
-    # Update control input
-    u = u_s + u_cp + u_cv
+
 
 # if u > u_sat:
 #     u = u_sat
@@ -155,6 +144,29 @@ while running:
 
 # print(u)
     if sim_state == 1:
+        """
+            Controller Update
+        """
+        if (abs(0 - pendulum_angle) <= np.deg2rad(5)):  # Stabilization condition: pole near upright
+            # Use stabilization controller
+            controller_state = "stabilize"
+            e = pendulum_d - pendulum_angle
+            u_s = stabilize_controller.update_controller(e, sat=10.0)
+            # print(f"Stabilize controller in used u_s={u_s}")
+        else :  # Swing-up condition: pole is far from upright
+            # Use swing-up controller
+            controller_state = "swingup"
+            u_s = swingup_controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[3], sat=30)
+            print(f"Swing-up controller in used u_s={u_s}")
+        
+        # Update cart position controller
+        u_cp = cartpos_controller.update_controller(cart_d - cart_x, sat=30.0)
+        
+        # # Update cart velocity controller
+        # u_cv = cartvel_controller.update_controller(0 - state[1], sat=15.0)
+        
+        # Update control input
+        u = u_s + u_cp + u_cv
         """
             Model Update
         """
@@ -226,7 +238,7 @@ while running:
     
     start_button.draw(screen)
     stop_button.draw(screen)
-    reset_button.draw(screen)
+    # reset_button.draw(screen)
     
     # if start_button.draw(screen):
     #     app_paused = True
