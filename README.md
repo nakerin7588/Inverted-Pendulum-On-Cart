@@ -9,10 +9,86 @@ Key components of the project include:
 - **Simulation** : A simulation to visualize the movement of the cart and pendulum and evaluate the performance of the controller.
 
 
-# Installation Instructions
+# Installation
 
 # Equation
+**1. Inverted Pendulum on Cart** 
 
+This is an under-actuated mechanical system with highly non-linear dynamics. It consists of a pendulum attached to a cart, where the pendulum can swing freely. The main objective of designing a control system for this setup is to swing the pendulum from the downward position to an upright position and maintain its balance. This is achieved by controlling the horizontal movement of the cart, which is the only available input for stabilizing the pendulum.
+
+                    รูป
+
+
+**2. Dynamics modeling of Inverted pendulum on cart**
+- FBD Inverted pendulum on cart
+
+                    รูป
+
+    - **F** = External force applied to the cart (N)
+    - **θ** = Angle of the pendulum (rad)
+    - **M** = Mass of the cart (kg)
+    - **m** = Mass of the pendulum (kg)
+    - **l** = Length of the pendulum (m)
+    - **g** = Acceleration due to gravity (m/s²)
+
+
+-  Kinematic equation of Inverted pendulum on cart
+  $$
+  x_m = x + l \sin(\theta)
+  $$
+
+  $$
+  \dot{x_m} = \dot{x} + l \dot{\theta}      \cos(\theta)
+  $$
+
+  $$
+  y_m = l \cos(\theta)
+  $$
+
+  $$
+  \dot{y_m} = -l \dot{\theta} \sin(\theta)
+  $$
+
+- Calculate Dynamics equation by Lagrangian
+    $$
+    L = T - V
+    $$
+
+
+    - **L** = Lagrangian (No unit)
+    - **T** = Kinetic Energy (J)
+    - **V** = Potential Energy (J)
+
+- The total kinetic energy of the system :
+
+    $$
+    T = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2
+    $$
+
+- The potential energy of the system :
+
+$$
+V = m g l \cos(\theta)
+$$
+
+- So Lagrangian of the system :
+    $$
+    L = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2 - m g l \cos(\theta)
+    $$
+
+- Summary 
+    - Equation of Motion for the Cart :
+
+        $$
+        \ddot{x} = \frac{F + m l \dot{\theta}^2 \sin(\theta) - m g \cos(\theta) \sin(\theta)}{M + m \sin^2(\theta)}
+        $$
+
+    - Equation of Motion for the Pendulum :
+        $$
+        \ddot{\theta} = \frac{g \sin(\theta) - \ddot{x} \cos(\theta)}{l}
+        $$
+
+**3. Energy-based control**
 
 
 # Usage
@@ -57,7 +133,8 @@ python visualization.py
 ### 5.Exit the Simulation
 To exit the simulation, only close the PyGame window.
 
-# Knowledge
-
-
-
+# Acknowledgments
+- [INVERTED PENDULUM (Model Based Control Design for Swing-up & Balance the Inverted Pendulum)](https://drive.google.com/file/d/1W2v3wKXBVW4FohB33kTv8iBEiOFgoS8d/view)
+- [Swing-up Control of an Inverted Pendulum by Energy-Based Methods](https://www.researchgate.net/publication/3811174_Swing-up_Control_of_an_Inverted_Pendulum_by_Energy-Based_Methods)
+- [Cart-pole system : Equations of motion](https://courses.ece.ucsb.edu/ECE594/594D_W10Byl/hw/cartpole_eom.pdf)
+- [NON-LINEAR SWING-UP AND STABILIZING CONTROL OF AN INVERTED PENDULUM SYSTEM](https://ieeer8.org/wp-content/uploads/downloads/2011/12/bugeja.pdf)
