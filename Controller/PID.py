@@ -42,10 +42,4 @@ class PID_controller:
         self.e_n_1 = e_n
         self.e_n = e_n
 
-        # Saturate output to prevent excessive control signals
-        # if self.y_n > sat:
-        #     self.y_n = sat
-        # elif self.y_n < -sat:
-        #     self.y_n = -sat
-
         return self.y_n
