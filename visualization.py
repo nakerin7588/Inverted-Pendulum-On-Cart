@@ -43,7 +43,7 @@ reset_img = pygame.image.load('Images/reset.png').convert_alpha()
 
 start_x = (width // 2) - 310
 start_y = 480
-stop_x = (width // 2) - 15
+stop_x = (width // 2)
 stop_y = 480
 reset_x = (width // 2) + 310
 reset_y = 480
@@ -191,9 +191,9 @@ def update_offset(new_width, new_height):
         reset_button.update_offset(reset_x + x_offset, reset_y + y_offset, new_scale)
         
         # Update graph position
-        angle_graph.x = (width // 2) - 310
-        position_graph.x = (width // 2) - 15
-        energy_graph.x = (width // 2) + 310
+        angle_graph.x = width - 700
+        position_graph.x = width - 320
+        energy_graph.x = width - 1080
 
 def reset_simulation():
     global is_start, switch_graph
@@ -214,6 +214,7 @@ def reset_simulation():
     current_time = 0.0
     cart_x_ = (cart_x * 100) + x_offset
     cart_y_ = height // 2
+    pendulum_e = inverted_pen.pendulum_energy(state=state)  # Energy of the pendulum
     
     # Update positions
     pendulum_x, pendulum_y = inverted_pen.kinematic(state=state)
