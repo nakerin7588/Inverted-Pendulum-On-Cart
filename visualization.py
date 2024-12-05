@@ -115,37 +115,14 @@ time_data = []       # Store time values
 running = True
 sim_state = 0
 while running:
-    
     timer.tick(f)
-    # print(state[1])
-    # print(f"Energy: {pendulum_e}")
+    """
+    Start/Stop Button
+    """
     if start_button.draw(screen):
         sim_state = 1
     if stop_button.draw(screen):
         sim_state = 0
-    # if reset_button.draw(screen):
-    #     sim_state = 0
-    #     cart_x = (width // 2) / 100  # Position Cart on x in meters
-    #     cart_y = (height // 2) / 100  # Position Cart on y in meters
-    #     pendulum_length = 100
-    #     pendulum_angle = np.pi  # Initial angle set to pi radians (downwards)
-    #     state = np.array([cart_x , 0.0, pendulum_angle, 0.0])
-    #     pendulum_x, pendulum_y = inverted_pen.kinematic(state=state)
-    #     pendulum_x_ = pendulum_x * 100 # Position Pendulum on x in pixels
-    #     pendulum_y_ = cart_y_ - pendulum_y * 100 # Position Pendulum on y in pixels
-    #     pendulum_e = 0.0
-    #     current_time = 0
-    #     start_time = pygame.time.get_ticks()
-        
-    
-
-
-# if u > u_sat:
-#     u = u_sat
-# elif u < -u_sat:
-#     u = -u_sat
-    # if reset_button.draw(screen):
-    #     sim_state = 0
 
     if sim_state == 1:
         """
@@ -219,32 +196,12 @@ while running:
     
     start_button.draw(screen)
     stop_button.draw(screen)
-    # reset_button.draw(screen)
-    
-    # if start_button.draw(screen):
-    #     app_paused = True
-    # if stop_button.draw(screen):
-    #         pass
-    # if reset_button.draw(screen):
-    #     app_paused = False
-        # elif event.type == pygame.start_button:
-        #     running = True
+
     for event in pygame.event.get():
             if event.type == pygame.QUIT:  # Check that are we closing the window
                 running = False
     # Update display
     pygame.display.flip()
-
-# # Replace the plotting code after the main loop
-# plt.figure(figsize=(10, 6))
-# plt.plot(time_data, velocity_data, label='Actual Velocity')
-# plt.plot(time_data, setpoint_data, '--', label='Setpoint')
-# plt.title('Cart Velocity over Time')
-# plt.xlabel('Time (s)')
-# plt.ylabel('Velocity (m/s)')
-# plt.grid(True)
-# plt.legend()
-# plt.show()
 
 # Quit Pygame
 pygame.quit()
