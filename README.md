@@ -11,5 +11,15 @@ Key components of the project include:
 
 # Equation
 
+
 # Usage
+
+To run the simulation follow these steps:
+### 1. Clone the Repository
+First, clone the project repository to your local machine:
+```bash
+git clone https://github.com/your-username/Inverted-Pendulum-On-Cart.git
+cd Inverted-Pendulum-On-Cart
+
+
 
