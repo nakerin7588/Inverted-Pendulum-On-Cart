@@ -35,7 +35,7 @@ pygame.display.set_caption("Simulation inverted pendulum on cart")
 
 start_img = pygame.image.load('Images/start.png').convert_alpha()
 stop_img = pygame.image.load('Images/stop.png').convert_alpha()
-reset_img = pygame.image.load('Images/reset.png').convert_alpha()
+# reset_img = pygame.image.load('Images/reset.png').convert_alpha()
 
 start_button = button.Button(250, 450, start_img, 0.125)
 stop_button = button.Button(700, 450, stop_img, 0.125)
@@ -122,7 +122,7 @@ while running:
     if start_button.draw(screen):
         sim_state = 1
     if stop_button.draw(screen):
-        sim_state = 0   
+        sim_state = 0
 
     if sim_state == 1:
         """
