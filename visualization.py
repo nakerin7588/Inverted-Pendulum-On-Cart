@@ -17,6 +17,9 @@ height = 600  # Pixels
 initial_size = (width, height)
 is_fullscreen = False
 
+base_width = 1000  # Base width for scaling calculations
+button_base_scale = 0.125  # Original button scale
+
 pygame.init()
 pygame.font.init()
 
@@ -26,7 +29,7 @@ f = 100
 
 timer = pygame.time.Clock()
 
-font = pygame.font.SysFont('Arial', 16)
+font = pygame.font.SysFont('Arial', 24)
 current_time = 0.0
 icon = pygame.image.load('Images/owl.png')
 clock = pygame.time.Clock()
@@ -46,7 +49,7 @@ start_button = button.Button(start_x, start_y, start_img, 0.125)
 stop_button = button.Button(stop_x, stop_y, stop_img, 0.125)
 
 # Color code
-Navy = (52, 73, 94)
+Navy = (69, 125, 142)
 Green = (118, 215, 196)
 Blue = (52, 152, 219)
 Orange = (240, 178, 122)
@@ -69,7 +72,7 @@ cart_height = 20  # height Cart in pixels
 cart_mass = 0.135  # mass Cart (kg)
 
 pendulum_length = 0.5  # length in meters
-pendulum_angle = -np.deg2rad(180)  # Initial angle set to pi radians (downwards)
+pendulum_angle = np.deg2rad(180)  # Initial angle set to pi radians (downwards)
 pendulum_mass = 0.1  # mass Pendulum (kg)
 
 state = np.array([cart_x, 0.0, 0.0, pendulum_angle, 0.0, 0.0])  # Initial state: [x, x_dot, x_ddot, theta, theta_dot, theta_ddot]
@@ -94,7 +97,7 @@ pendulum_d = 0.0 # Desired angle of pendulum
 energy_d = 2 * pendulum_mass * gravity * pendulum_length  # Desired energy of the system
 
 # Initialize controller
-controller = controller(k_e=20.0, kp_s=100.0, kd_s=800.0, kp_p=5.0, ki_p=0.0, kd_p=100.0, theta_range=25, m=pendulum_mass, M=cart_mass, L=pendulum_length/100)
+controller = controller(k_e=13.5, kp_s=15.0, kd_s=100.0, kp_p=5.0, ki_p=0.0, kd_p=100.0, theta_range=25, m=pendulum_mass, M=cart_mass, L=pendulum_length/100)
 
 """
 Graph variables
@@ -147,15 +150,20 @@ def update_offset(new_width, new_height):
         height = new_height
         
         # Update cart position
-        cart_x_ += x_offset
+        cart_x_ = (cart_x * 100) + x_offset
         cart_y_ = height // 2
 
         # Update pendulum position
-        pendulum_x_ += x_offset
+        pendulum_x_ = (pendulum_x * 100) + x_offset
+        pendulum_y_ = pendulum_y * 100
+        pendulum_y_ = cart_y_ - pendulum_y_
         
-        # Update button position
-        start_button.update_offset(start_x + x_offset, start_y + y_offset, 0.125)
-        stop_button.update_offset(stop_x + x_offset, stop_y + y_offset, 0.125)
+        # Calculate new scale based on window width
+        new_scale = (new_width / base_width) * button_base_scale
+        
+        # Update button positions and scale
+        start_button.update_offset(start_x + x_offset, start_y + y_offset, new_scale)
+        stop_button.update_offset(stop_x + x_offset, stop_y + y_offset, new_scale)
         
         # Update graph position
         angle_graph.x = width - 750
@@ -214,7 +222,7 @@ while running:
     screen.fill(Navy)
     
     # Draw time in left corner
-    time_text = font.render(f'Time: {current_time:.2f}s', True, White)
+    time_text = font.render(f'Time: {current_time:.2f} s', True, Black)
     screen.blit(time_text, (10, 10))
     
     # Draw Pendulum angle graph in right corner
@@ -255,8 +263,6 @@ while running:
             update_offset(*screen.get_size())
         elif event.type == pygame.WINDOWRESTORED:
             update_offset(*screen.get_size())
-    
-    print(f"{cart_y_}")
     
     # Update display
     pygame.display.flip()
