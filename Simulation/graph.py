@@ -15,14 +15,15 @@ class graph:
         
         self.time_data = []
         self.value_data = []
-        self.title_font = pygame.font.SysFont('Arial', 20, bold=True)  # Larger, bold font for title
-        self.font = pygame.font.SysFont('Arial', 16)
+        self.title_font = pygame.font.SysFont('Arial', 18, bold=True)  # Larger, bold font for title
+        self.font = pygame.font.SysFont('Arial', 12)
         
         # Colors
         self.BLACK = (0, 0, 0)
         self.WHITE = (253, 254, 254)
-        self.GREEN = (118, 215, 196)
-        self.RED = (241, 148, 138)  # Add color for setpoint line
+        self.BLUE = (48, 61, 253)
+        self.RED = (223, 12, 12)
+        self.FRAME_BG = (240, 240, 240)  # Light gray background
         
         # Initialize empty lists for data storage
         self.time_data = []
@@ -30,6 +31,13 @@ class graph:
         self.max_points = int(time_window * 100)  # Store 100 points per second
         
         self.setpoint = None
+        
+        # Extract unit and name from y_label if it's in parentheses
+        self.unit = ""
+        self.y_name = y_label
+        if "(" in y_label and ")" in y_label:
+            self.unit = y_label[y_label.find("(")+1:y_label.find(")")]
+            self.y_name = y_label[:y_label.find("(")].strip()  # Get name without unit and remove whitespace
         
     def draw(self, screen, current_time, current_value):
         # Draw graph background
@@ -54,6 +62,13 @@ class graph:
         grid_spacing_y = self.height / 6
         grid_spacing_x = self.width / 5
         
+        # Find maximum width needed for y-axis labels
+        max_width = 0
+        for i in range(7):
+            y_value = self.y_range[1] - (i * (self.y_range[1] - self.y_range[0]) / 6)
+            y_label = self.font.render(f'{y_value:.1f}', True, self.BLACK)
+            max_width = max(max_width, y_label.get_width())
+        
         # Draw horizontal grid lines and y-axis numbers
         for i in range(7):
             y_pos = self.y + i * grid_spacing_y
@@ -62,9 +77,10 @@ class graph:
                            (self.x + self.width, y_pos), 1)
             pygame.draw.line(screen, self.BLACK, (self.x - 5, y_pos), 
                            (self.x + 5, y_pos), 2)
-            # Add y-axis numbers
+            # Right align y-axis numbers
             y_label = self.font.render(f'{y_value:.1f}', True, self.BLACK)
-            screen.blit(y_label, (self.x - 45, y_pos - 10))
+            label_height = y_label.get_height()
+            screen.blit(y_label, (self.x - 10 - max_width, y_pos - label_height/2))
         
         # Draw vertical grid lines and x-axis numbers
         current_time = self.time_data[-1] if self.time_data else 0
@@ -75,9 +91,10 @@ class graph:
                            (x_pos, self.y + self.height), 1)
             pygame.draw.line(screen, self.BLACK, (x_pos, self.y + self.height - 5), 
                            (x_pos, self.y + self.height + 5), 2)
-            # Add x-axis numbers
+            # Center x-axis numbers horizontally on the grid line
             x_label = self.font.render(f'{x_value:.1f}', True, self.BLACK)
-            screen.blit(x_label, (x_pos - 20, self.y + self.height + 10))
+            label_width = x_label.get_width()
+            screen.blit(x_label, (x_pos - label_width/2, self.y + self.height + 10))
     
     def _draw_axes(self, screen):
         # Draw axes with thicker lines
@@ -104,20 +121,35 @@ class graph:
         title_x = self.x + (self.width - title.get_width()) // 2
         screen.blit(title, (title_x, self.y - 25))
         
-        # Draw current value below title
-        value_text = self.font.render(f'Current: {current_value:.2f}', True, self.BLACK)
-        screen.blit(value_text, (self.x + 10, self.y + 10))
+        # Draw value with frame, using y_name instead of "Current"
+        value_text = self.font.render(f'{self.y_name}: {current_value:.2f} {self.unit}', True, self.BLACK)
+        value_x = self.x + (self.width - value_text.get_width()) // 2
+        value_y = self.y + self.height + 30
         
-        # Draw x-label at bottom-right corner
+        # Draw frame background
+        padding = 5
+        frame_rect = pygame.Rect(
+            value_x - padding,
+            value_y - padding,
+            value_text.get_width() + padding * 2,
+            value_text.get_height() + padding * 2
+        )
+        pygame.draw.rect(screen, self.FRAME_BG, frame_rect)
+        pygame.draw.rect(screen, self.BLACK, frame_rect, 1)  # Frame border
+        
+        # Draw value text with unit
+        screen.blit(value_text, (value_x, value_y))
+        
+        # Draw x-label at right end of x-axis
         x_label = self.font.render(self.x_label, True, self.BLACK)
-        x_label_pos = (self.x + self.width - x_label.get_width() - 10, 
-                      self.y + self.height - x_label.get_height() - 5)
+        x_label_pos = (self.x + self.width + 10,  # Move to right of axis
+                      self.y + self.height - x_label.get_height()//2)  # Vertically center with axis
         screen.blit(x_label, x_label_pos)
         
-        # Draw y-label at top-right corner
+        # Draw y-label at middle-left position
         y_label = self.font.render(self.y_label, True, self.BLACK)
-        y_label_pos = (self.x + self.width - y_label.get_width() - 10, 
-                      self.y + 10)
+        y_label_pos = (self.x - 75, 
+                      self.y + (self.height // 2) - (y_label.get_height() // 2))
         screen.blit(y_label, y_label_pos)
     
     def _plot_data(self, screen):
@@ -154,7 +186,7 @@ class graph:
             
             # Draw lines between points if we have at least 2 points
             if len(points) > 1:
-                pygame.draw.lines(screen, self.GREEN, False, points, 2)
+                pygame.draw.lines(screen, self.BLUE, False, points, 2)
 
     def _update_data(self, current_time, current_value):
         # Add new data point
