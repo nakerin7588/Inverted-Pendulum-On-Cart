@@ -1,6 +1,8 @@
 # Inverted-Pendulum-On-Cart
 This final project is in FRA333(Kinematics of Robotics System) This project exprain process of Inverted-Pendulum-On-Cart. By using simulation from PyGame.
 
+<p align="center"><img src="Images/init_simulation.png" alt="initial simulation" /></p>
+
 Key components of the project include:
 - **Modeling** : Dynamics model of the cart-pendulum system.
 - **Controller** : 
@@ -9,20 +11,44 @@ Key components of the project include:
 - **Simulation** : A simulation to visualize the movement of the cart and pendulum and evaluate the performance of the controller.
 
 
-# Installation
+# Getting Started
+
+## Dependencies
+To use this project. You need to have all of dependencies for this project.
+
+⚠️**warning**: Make sure you have python version > 3.10 already.
+
+## Installation
+
+1. Clone this repository
+
+    Clone this repository via this command below into your workspace or download it and extract file into your workspace.
+
+    ```
+    git clone https://github.com/nakerin7588/Inverted-Pendulum-On-Cart.git
+    cd Inverted-Pendulum-On-Cart
+    ```
+
+2. Run the Simulation
+
+    Execute the `visualization.py` via this command below.
+
+    ⚠️**warning**: Make sure you are in root folder of your workspcae.
+
+    ```
+    python3 visualization.py
+    ```
 
 # Equation
-**1. Inverted Pendulum on Cart** 
 
-This is an under-actuated mechanical system with highly non-linear dynamics. It consists of a pendulum attached to a cart, where the pendulum can swing freely. The main objective of designing a control system for this setup is to swing the pendulum from the downward position to an upright position and maintain its balance. This is achieved by controlling the horizontal movement of the cart, which is the only available input for stabilizing the pendulum.
+1. **Inverted Pendulum on Cart**
 
-                    รูป
+    This is an under-actuated mechanical system with highly non-linear dynamics. It consists of a pendulum attached to a cart, where the pendulum can swing freely. The main objective of designing a control system for this setup is to swing the pendulum from the downward position to an upright position and maintain its balance. This is achieved by controlling the horizontal movement of the cart, which is the only available input for stabilizing the pendulum.
 
+2. **Dynamics modeling of Inverted pendulum on cart**
+    - FBD Inverted pendulum on cart
 
-**2. Dynamics modeling of Inverted pendulum on cart**
-- FBD Inverted pendulum on cart
-
-                    รูป
+        <p align="center"><img src="Images/Dynamics-model.png" alt="initial simulation" /></p>
 
     - **F** = External force applied to the cart (N)
     - **θ** = Angle of the pendulum (rad)
