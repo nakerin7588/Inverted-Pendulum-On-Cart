@@ -81,7 +81,6 @@ pendulum_e = inverted_pen.pendulum_energy(state=state)  # Energy of the pendulum
 
 # Variable Controller
 u = 0.0  # Control input
-u_sat = 100000.0  # Control input saturation limit
 
 cart_d = cart_x # Desired position of cart
 pendulum_d = 0.0 # Desired angle of pendulum
