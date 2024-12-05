@@ -1,5 +1,6 @@
 import pygame
 import numpy as np
+from Controller.controller import controller
 from Controller.energy import energy_controller
 from Controller.PID import PID_controller
 import Simulation.model as model
@@ -63,10 +64,10 @@ cart_height = 20  # height Cart in pixels
 cart_mass = 1  # mass Cart (kg)
 
 pendulum_length = 100  # length in pixels (represents 1 meter)
-pendulum_angle = np.pi  # Initial angle set to pi radians (downwards)
+pendulum_angle = np.deg2rad(180)  # Initial angle set to pi radians (downwards)
 pendulum_mass = 0.5  # mass Pendulum (kg)
 
-state = np.array([cart_x, 0.0, pendulum_angle, 0.0])  # Initial state: [x, x_dot, theta, theta_dot]
+state = np.array([cart_x, 0.0, 0.0, pendulum_angle, 0.0, 0.0])  # Initial state: [x, x_dot, x_ddot, theta, theta_dot, theta_ddot]
 
 gravity = 9.8125  # gravitational acceleration (m/s^2)
 dt = 1/f
@@ -96,8 +97,10 @@ energy_d = 2 * pendulum_mass * gravity * pendulum_length  # Desired energy of th
 controller_state = "swingup" # Initial controller state
 
 # Initialize controller
-swingup_controller = energy_controller(k=0.001)
-stabilize_controller = PID_controller(kp=1.0, ki=0.0, kd=0.0)
+controller = controller(k_e=0.02, kp_s=80.0, kd_s=40.0, kp_p=3.1, kd_p=4.8, k_v=30.0, theta_range=15, m=pendulum_mass, M=cart_mass, L=pendulum_length/100)
+
+swingup_controller = energy_controller(k=0.005, m=pendulum_mass, M=cart_mass, L=pendulum_length/100)
+stabilize_controller = PID_controller(kp=50.0, ki=0.0, kd=0.0)
 
 cartpos_controller = PID_controller(kp=8.0, ki=0.0, kd=3.0)
 cartvel_controller = PID_controller(kp=30.0, ki=5.0, kd=0.0)
@@ -141,51 +144,29 @@ while running:
 #     u = u_sat
 # elif u < -u_sat:
 #     u = -u_sat
+    if reset_button.draw(screen):
+        sim_state = 0
 
-# print(u)
     if sim_state == 1:
         """
-            Controller Update
+        Controller Update
         """
-        if (abs(0 - pendulum_angle) <= np.deg2rad(5)):  # Stabilization condition: pole near upright
-            # Use stabilization controller
-            controller_state = "stabilize"
-            e = pendulum_d - pendulum_angle
-            u_s = stabilize_controller.update_controller(e, sat=10.0)
-            # print(f"Stabilize controller in used u_s={u_s}")
-        else :  # Swing-up condition: pole is far from upright
-            # Use swing-up controller
-            controller_state = "swingup"
-            u_s = swingup_controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[3], sat=30)
-            print(f"Swing-up controller in used u_s={u_s}")
-        
-        # Update cart position controller
-        u_cp = cartpos_controller.update_controller(cart_d - cart_x, sat=30.0)
-        
-        # # Update cart velocity controller
-        # u_cv = cartvel_controller.update_controller(0 - state[1], sat=15.0)
-        
-        # Update control input
-        u = u_s + u_cp + u_cv
+        u = controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[4], theta_ddot=state[5], theta_d=pendulum_d, x=state[0], x_dot=state[1], x_d=cart_d)
+       
         """
-            Model Update
+        Model Update
         """
         # Update dynamics of Pendulum
         state = inverted_pen.dynamics(state=state, u=u)
         cart_x = state[0]
-        pendulum_angle = state[2]
+        pendulum_angle = state[3]
         
         # Update Kinematic of Pendulum
         pendulum_x, pendulum_y = inverted_pen.kinematic(state=state)
         
         # Update Energy of Pendulum
         pendulum_e = inverted_pen.pendulum_energy(state=state)
-        
-        # Add these lines after state update
-        velocity_data.append(state[1])   # Store current velocity
-        setpoint_data.append(1)        # Store setpoint (constant at 1.0)
-        time_data.append(current_time)   # Store current time
-        
+    
         # Map to pygame scale
         cart_x_ = cart_x * 100
         pendulum_x_ = pendulum_x * 100
@@ -198,7 +179,7 @@ while running:
         current_time = (pygame.time.get_ticks() - start_time) / 1000.0  # Convert to seconds
 
     """
-        Simulation update
+    Simulation update
     """
     # Render graphics
     screen.fill(Navy)
