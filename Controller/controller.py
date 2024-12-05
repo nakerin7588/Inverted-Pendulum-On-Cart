@@ -1,40 +1,61 @@
 import numpy as np
-from energy import energy_controller
-from PID import PID_controller
+from Controller.energy import energy_controller
+from Controller.PID import PID_controller
 
 class controller:
     """
     
     """
-    def __init__(self, k):
-        self.k = k  # Proportional gain for energy control
+    def __init__(self, k_e, kp_s, kd_s, kp_p, kd_p, k_v, theta_range, m, M, L):
+        # Controller initialization
+        self.e_controller = energy_controller(m, M, L, k_e) # Energy controller
+        self.s_controller = PID_controller(kp_s, 0.0, kd_s) # Stabilize controller
+        self.p_controller = PID_controller(kp_p, 0.0, kd_p) # Position controller
+        self.v_controller = PID_controller(k_v, 0.0, 0.0) # Velocity controller
         
-        # State variables
-        self.y = 0.0    # Output control signal
-        self.e = 0.0    # Energy error (difference between current and desired energy)
-        
-    def update_controller(self, e, e_d, theta, theta_dot, sat):
-        """
-        """
-        if (abs(0 - pendulum_angle) <= np.deg2rad(5)):  # Stabilization condition: pole near upright
-            # Use stabilization controller
-            controller_state = "stabilize"
-            e = pendulum_d - pendulum_angle
-            u_s = stabilize_controller.update_controller(e, sat=10.0)
-            # print(f"Stabilize controller in used u_s={u_s}")
-        else :  # Swing-up condition: pole is far from upright
-            # Use swing-up controller
-            controller_state = "swingup"
-            u_s = swingup_controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[3], sat=30)
-            print(f"Swing-up controller in used u_s={u_s}")
+        # Controller variables
+        self.u = 0.0
+        self.theta_range = theta_range # Range of theta for stabilization in degree
+        self.state = "STABILIZE" # Controller state [SWINGUP, STABILIZE]
     
-        # Update cart position controller
-        u_cp = cartpos_controller.update_controller(cart_d - cart_x, sat=30.0)
+    def update_controller_state(self, th, e, e_d):
+	    return "STABILIZE" if abs(th) < np.deg2rad(self.theta_range) else "SWINGUP"
+    
+    def update_controller(self, e, e_d, theta, theta_dot, theta_ddot, theta_d, x, x_dot , x_d):
+        """
+        """
+        # if self.state == "GO_CENTER":
+        #     if abs(theta) < np.deg2rad(self.theta_range):
+        #         self.state = "STABILIZE"
+        #     elif abs(x_d - x) <= 1e-2:
+        #         self.state = "SWINGUP"
+        #     else:
+        #         self.u = self.p_controller.update_controller(x_d - x, 1000.0)
         
-        # # Update cart velocity controller
-        # u_cv = cartvel_controller.update_controller(0 - state[1], sat=15.0)
+        # elif self.state == "SWINGUP":
+        #     if abs(theta) < np.deg2rad(self.theta_range):
+        #         self.state = "STABILIZE"
+        #     elif abs(x_d - x) <= 0.05:
+        #         self.u = self.e_controller.update_controller(e, e_d, theta, theta_dot, theta_ddot, 1000.0)
+        #     else:
+        #         self.state = "GO_CENTER"
+            
+        # elif self.state == "STABILIZE":
+        #     if abs(theta) > np.deg2rad(self.theta_range):
+        #         self.state = "GO_CENTER"
+        #     else:
+        #         self.u = -self.s_controller.update_controller(theta_d - theta, 1000.0)
+        #         self.u -= self.p_controller.update_controller(x_d - x, 1000.0)
         
-        # Update control input
-        u = u_s + u_cp + u_cv
+        self.state = self.update_controller_state(theta, e, e_d)
         
-        return u
+        if self.state == "STABILIZE":
+            self.u = self.s_controller.update_controller(theta - theta_d, 1000.0) + self.p_controller.update_controller(x - x_d, 1000.0)
+            
+        else:
+            self.state = "SWINGUP"
+            self.u = self.e_controller.update_controller(e, e_d, theta, theta_dot, theta_ddot, 1000.0)
+        
+        print(f"Current controller state is {self.state} and Control input is {self.u}")
+        
+        return self.u
