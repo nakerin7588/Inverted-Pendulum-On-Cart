@@ -90,6 +90,42 @@ $$
 
 **3. Energy-based control**
 
+This focuses on adjusting the energy of the system to control its dynamics.
+- Nonlinear Equations in Terms of Force :
+
+    $$
+    F = (M + m \sin^2(\theta)) \ddot{x} - m l \dot{\theta}^2 \sin(\theta) + m g \cos(\theta) \sin(\theta)
+    $$
+
+- Control Law (Energy-Based Control) :
+
+    $$
+    u = \ddot{x}
+    $$
+
+- Total Energy of the Pendulum :
+
+    $$
+    E = \frac{1}{2} m l^2 \dot{\theta}^2 + m g l (1 + \cos(\theta))
+    $$
+
+- Energy Required to Reach the Equilibrium
+
+$$
+E_d = m g l (1 + \cos(0)) = 2 m g l
+$$
+
+- Controller Design
+$$
+u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0
+$$
+
+- The controller design is divided into 2 phases
+    - Phases 1 add Energy if $E<E_d$
+    - Phases 2 Remove Energy if $E>E_d$
+    - Get  $u = \text{sat}_{u_{\text{max}}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$
+
+    In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
 
 # Usage
 
