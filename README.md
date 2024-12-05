@@ -36,7 +36,7 @@ To use this project. You need to have all of dependencies for this project.
     ⚠️**warning**: Make sure you are in root folder of your workspcae.
 
     ```
-    python3 visualization.py
+    python3 .\visualization.py
     ```
 
 # Equation
