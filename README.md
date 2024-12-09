@@ -155,7 +155,7 @@ To use this project. You need to have all of dependencies for this project.
 ## Simulation's features
 
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/debdf778-9a44-428d-b6f6-7dc8c22bb408" alt="runSim_Kine" />
+  <img src="Images/runSim_Kine (1).gif" alt="runSim_Kine" />
 </div>
 
 * **Start Simulation**
