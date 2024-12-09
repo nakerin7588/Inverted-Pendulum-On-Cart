@@ -3,43 +3,14 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 <p align="center"><img src="Images/init_simulation.png" alt="initial simulation" /></p>
 
-Key components of the project include:
+### Key components of the project include:
 - **Modeling** : Dynamics model of the cart-pendulum system.
 - **Controller** : 
     - *Swing-up Controller* : A control strategy applied at the start to add energy to the pendulum, enabling it to swing from the downward position to the upright position.
     - *Stabilized* : Implementation of a PID controller to keep the pendulum stabilized in the upright position.
 - **Simulation** : A simulation to visualize the movement of the cart and pendulum and evaluate the performance of the controller.
 
-
-# Getting Started
-
-## Dependencies
-To use this project. You need to have all of dependencies for this project.
-
-⚠️**warning**: Make sure you have python version > 3.10 already.
-
-## Installation
-
-1. Clone this repository
-
-    Clone this repository via this command below into your workspace or download it and extract file into your workspace.
-
-    ```
-    git clone https://github.com/nakerin7588/Inverted-Pendulum-On-Cart.git
-    cd Inverted-Pendulum-On-Cart
-    ```
-
-2. Run the Simulation
-
-    Execute the `visualization.py` via this command below.
-
-    ⚠️**warning**: Make sure you are in root folder of your workspcae.
-
-    ```
-    python3 .\visualization.py
-    ```
-
-# Equation
+# Concepts and Theories
 
 1. **Inverted Pendulum on Cart**
 
@@ -155,47 +126,54 @@ $$
 
 # Usage
 
-To run the simulation follow these steps :
-### 1. Clone the Repository
-First, clone the project repository to your computer :
-```bash
-git clone https://github.com/nakerin7588/Inverted-Pendulum-On-Cart.git
-cd Inverted-Pendulum-On-Cart
-```
-### 2.Install Dependencies
-Make sure you have Python installed. Then install the required libraries.
+## Dependencies
+To use this project. You need to have all of dependencies for this project.
 
-1. Pygame
+⚠️**warning**: Make sure you have python version > 3.10 already.
 
-    ```bash
-    pip3 install pygame
+## Installation
+
+1. Clone this repository
+
+    Clone this repository via this command below into your workspace or download it and extract file into your workspace.
+
     ```
-2. numpy
-    ```bash
-    pip3 install numpy
+    git clone https://github.com/nakerin7588/Inverted-Pendulum-On-Cart.git
+    cd Inverted-Pendulum-On-Cart
     ```
 
-### 3.Run the Simulation
-Execute the main script to launch the simulation :
-```bash
-python visualization.py
-```
+2. Run the Simulation
 
-### 4. Start and Control the Simulation
+    Execute the `visualization.py` via this command below.
+
+    ⚠️**warning**: Make sure you are in root folder of your workspcae.
+
+    ```
+    python3 .\visualization.py
+    ```
+
+## Simulation's features
+
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/debdf778-9a44-428d-b6f6-7dc8c22bb408" alt="runSim_Kine" />
+</div>
+
 * **Start Simulation**
     
     After the simulation window appears, you will see a *Start button*. Click on it to begin the simulation.
     - Initially, the *swing-up controller* will be applied to add energy to the pendulum, attempting to swing it up to an upright position.
-    - Next the *PID controller* will attempt to stabilize the pendulum by controlling the cart's movement.
+    - Next the *Stabilize controller* will attempt to stabilize the pendulum by controlling the cart's movement.
 
 * **Stop Simulation**
     
     While the simulation is running, you can press the *Stop button* to pause the simulation anytime.
 
-### 5.Exit the Simulation
-To exit the simulation, only close the PyGame window.
+* **Reset Simulation**
+    
+    While the simulation is pausing, you can press the *Reset button* to reset the simulation.
 
-# Acknowledgments
+# References
+
 - [INVERTED PENDULUM (Model Based Control Design for Swing-up & Balance the Inverted Pendulum)](https://drive.google.com/file/d/1W2v3wKXBVW4FohB33kTv8iBEiOFgoS8d/view)
 - [Swing-up Control of an Inverted Pendulum by Energy-Based Methods](https://www.researchgate.net/publication/3811174_Swing-up_Control_of_an_Inverted_Pendulum_by_Energy-Based_Methods)
 - [Cart-pole system : Equations of motion](https://courses.ece.ucsb.edu/ECE594/594D_W10Byl/hw/cartpole_eom.pdf)
