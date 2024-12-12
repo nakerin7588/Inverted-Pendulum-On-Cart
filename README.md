@@ -30,6 +30,7 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 
 -  Kinematic equation of Inverted pendulum on cart
+
   $$
   x_m = x + l \sin(\theta)
   $$
@@ -47,6 +48,7 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
   $$
 
 - Calculate Dynamics equation by Lagrangian
+
     $$
     L = T - V
     $$
@@ -64,11 +66,12 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 - The potential energy of the system :
 
-$$
-V = m g l \cos(\theta)
-$$
+    $$
+    V = m g l \cos(\theta)
+    $$
 
 - So Lagrangian of the system :
+
     $$
     L = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2 - m g l \cos(\theta)
     $$
@@ -81,6 +84,7 @@ $$
         $$
 
     - Equation of Motion for the Pendulum :
+
         $$
         \ddot{\theta} = \frac{g \sin(\theta) - \ddot{x} \cos(\theta)}{l}
         $$
@@ -108,14 +112,15 @@ This focuses on adjusting the energy of the system to control its dynamics.
 
 - Energy Required to Reach the Equilibrium
 
-$$
-E_d = m g l (1 + \cos(0)) = 2 m g l
-$$
+    $$
+    E_d = m g l (1 + \cos(0)) = 2 m g l
+    $$
 
 - Controller Design
-$$
-u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0
-$$
+
+    $$
+    u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0
+    $$
 
 - The controller design is divided into 2 phases
     - Phases 1 add Energy if $E<E_d$
