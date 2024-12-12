@@ -30,57 +30,68 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 
 -  Kinematic equation of Inverted pendulum on cart
+
   $$x_m = x + l \sin(\theta)$$
   $$\dot{x_m} = \dot{x} + l \dot{\theta}      \cos(\theta)$$
   $$y_m = l \cos(\theta)$$
   $$\dot{y_m} = -l \dot{\theta} \sin(\theta)$$
 
 - Calculate Dynamics equation by Lagrangian
-    $$L = T - V$$
 
+    $$L = T - V$$
 
     - **L** = Lagrangian (No unit)
     - **T** = Kinetic Energy (J)
     - **V** = Potential Energy (J)
 
 - The total kinetic energy of the system :
+
     $$T = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2$$
 
 - The potential energy of the system :
+    
     $$V = m g l \cos(\theta)$$
 
 - So Lagrangian of the system :
+    
     $$L = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2 - m g l \cos(\theta)$$
 
 - Summary 
     - Equation of Motion for the Cart :
-        $$\ddot{x} = \frac{F + m l \dot{\theta}^2 \sin(\theta) - m g \cos(\theta) \sin(\theta)}{M + m \sin^2(\theta)}$$
+    
+    $$\ddot{x} = \frac{F + m l \dot{\theta}^2 \sin(\theta) - m g \cos(\theta) \sin(\theta)}{M + m \sin^2(\theta)}$$
 
     - Equation of Motion for the Pendulum :
-        $$\ddot{\theta} = \frac{g \sin(\theta) - \ddot{x} \cos(\theta)}{l}$$
+    
+    $$\ddot{\theta} = \frac{g \sin(\theta) - \ddot{x} \cos(\theta)}{l}$$
 
 **3. Energy-based control**
 
 This focuses on adjusting the energy of the system to control its dynamics.
 - Nonlinear Equations in Terms of Force :
+    
     $$F = (M + m \sin^2(\theta)) \ddot{x} - m l \dot{\theta}^2 \sin(\theta) + m g \cos(\theta) \sin(\theta)$$
 
 - Control Law (Energy-Based Control) :
+    
     $$u = \ddot{x}$$
 
 - Total Energy of the Pendulum :
+    
     $$E = \frac{1}{2} m l^2 \dot{\theta}^2 + m g l (1 + \cos(\theta))$$
 
 - Energy Required to Reach the Equilibrium
+    
     $$E_d = m g l (1 + \cos(0)) = 2 m g l$$
 
 - Controller Design
+    
     $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
 
 - The controller design is divided into 2 phases
     - Phases 1 add Energy if $E<E_d$
     - Phases 2 Remove Energy if $E>E_d$
-    - Get  $u = \text{sat}_{u_{\text{max}}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$
+    - Get $u = \text{sat}_{u_{\text{max}}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$
 
     In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
 
