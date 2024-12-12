@@ -124,6 +124,9 @@ $$
 
     In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
 
+# Methodology
+1. 
+
 # Usage
 
 ## Dependencies
