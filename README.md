@@ -61,12 +61,12 @@ $$L = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \f
 
 - Summary 
     - Equation of Motion for the Cart :
-    
-    $$\ddot{x} = \frac{F + m l \dot{\theta}^2 \sin(\theta) - m g \cos(\theta) \sin(\theta)}{M + m \sin^2(\theta)}$$
+
+        $$\ddot{x} = \frac{F + m l \dot{\theta}^2 \sin(\theta) - m g \cos(\theta) \sin(\theta)}{M + m \sin^2(\theta)}$$
 
     - Equation of Motion for the Pendulum :
-    
-    $$\ddot{\theta} = \frac{g \sin(\theta) - \ddot{x} \cos(\theta)}{l}$$
+
+        $$\ddot{\theta} = \frac{g \sin(\theta) - \ddot{x} \cos(\theta)}{l}$$
 
 **3. Energy-based control**
 
