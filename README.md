@@ -94,14 +94,29 @@ $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
 - The controller design is divided into 2 phases
     - Phases 1 add Energy if $E<E_d$
     - Phases 2 Remove Energy if $E>E_d$
-    - Get
-
-        $$u = \text{sat}_{u_{\text{max}}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$$
+    - Get $u = \text{sat}_{u_{\text{max}}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$
 
     In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
 
 # Methodology
-1. 
+
+## 1. System Diagram
+
+After we done research about dynamics of inverted pendulum and control strategy. We considerated to create our system diagram to guide us to complete our project.
+
+<p align="center"><img src="Images/SystemDiagram.png" alt="system diagram" /></p>
+
+## 2. Modeling for simulation
+
+From dynamics model that we got. We have create the model that simulate with python by using dynamics & kinematic model of inverted pendulum on cart.
+
+<p align="center"><img src="Images/OnlyDynamics.gif" alt="system diagram" /></p>
+
+## 3. Controller design
+
+
+
+## 4. Simulation
 
 # Usage
 
