@@ -150,38 +150,45 @@ Both Matlab and Python simulations were run with the following parameters:
 - Simulation visualized the pendulum’s motion effectively, though with slightly reduced accuracy compared to Matlab.
 
 # Chapter 5 : Summary
+
 This project successfully simulated and controlled the **Inverted Pendulum on a Cart** system, addressing the challenges of swing-up and stabilization. The outcomes from the Python simulation were validated against Matlab results, providing confidence in the correctness and performance of the system.
 
 ## Key Insights
-1. **Swing-Up Control**: 
 
-   - Both Matlab and Python effectively transitioned the pendulum from the downward to the upright position.
-   - Matlab demonstrated a smoother and faster swing-up trajectory due to precise numerical solvers.
+1. **Validation with Matlab**: 
 
-2. **Stabilization Control**:
+   - Python’s results closely aligned with Matlab, confirming the theoretical correctness of the Python simulation.
+
+2. **Swing-Up Control**: 
+
+    - The energy based controller perform that, this system can swing the pendulum upright position while this system is non-linear.
+
+3. **Stabilization Control**:
 
    - The PID controller maintained the pendulum in the upright position with acceptable performance in both platforms.
    - Matlab showed superior stabilization with faster settling time and minimal overshoot.
 
-3. **Validation with Matlab**: 
-
-   - Python’s results closely aligned with Matlab, confirming the theoretical correctness of the Python simulation.
-
-## Practical Implications
-
-1. **Matlab** : Demonstrated high numerical accuracy, making it ideal for theoretical validation, detailed control design, and handling edge cases or extreme initial conditions.
-
-2. **Python (Pygame)** :
-Provided an interactive, real-time visualization tool, making it  for educational purposes and intuitive understanding of system dynamics.
-Despite slightly reduced accuracy compared to Matlab, Python’s implementation proved effective in demonstrating real-world system behavior.
-
 # Usage
+
+Our project was develop with Ubuntu22.04, so every command is for ubuntu.
 
 ## Dependencies
 
 To use this project. You need to have all of dependencies for this project.
 
 ⚠️**warning**: Make sure you have python version > 3.10 already.
+
+1. pygame
+
+    ```
+    pip3 install pygame
+    ```
+
+2. numpy
+
+    ```
+    pip3 install numpy
+    ```
 
 ## Installation
 
