@@ -118,7 +118,18 @@ From dynamics model that we got. We have create the model that simulate with pyt
 
 After we got dynamics simulation of our inverted pendulum on cart. We decided to desire controller of our project that reference from system diagram.
 
+Controller desire step:
+
+1. We desired swing-up controller using Energy-based control that use total energy of pendulum to control this system. Because dynamics model of this is non-linear system, So we can't use only PID controller to control position of pendulum. Additionally, we also use PID to control position of cart to make sure cart will still on center.
+
+2. After we can swing the pendulum to upright position we decided to control stability of pendulum to make sure that pendulum will still on upright position. So we decided to use PID controller because we estimate stabilize state was linear. Additionally, we add position controller as same as swing-up controller to make sure that cart will still on center.
+
+3. Fine tune step. We tuning gain of controller with trial and error method, because we want to focus on dynamics desire step so we didn't want to use other method.
+
+<p align="center"><img src="Images/runSim_Kine.gif" alt="runSim_Kine" /></p>
+
 ## 4. Simulation
+
 
 
 # Chapter 4 : Results and Analysis
@@ -143,9 +154,7 @@ Both Matlab and Python simulations were run with the following parameters:
 
 ## 4.4 Results from Simulation
 
-<div align="center">
-  <img src="Images/runSim_Kine.gif" alt="runSim_Kine" />
-</div>
+<div align="center"><img src="Images/runSim_Kine.gif" alt="runSim_Kine" /></div>
 
 - Simulation visualized the pendulum’s motion effectively, though with slightly reduced accuracy compared to Matlab.
 
