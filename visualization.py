@@ -78,12 +78,12 @@ cart_height = 20  # height Cart in pixels
 cart_mass = 0.135  # mass Cart (kg)
 
 pendulum_length = 0.5  # length in meters
-pendulum_angle = np.deg2rad(180)  # Initial angle set to pi radians (downwards)
+pendulum_angle = np.deg2rad(120)  # Initial angle set to pi radians (downwards)
 pendulum_mass = 0.1  # mass Pendulum (kg)
 
 state = np.array([cart_x, 0.0, 0.0, pendulum_angle, 0.0, 0.0])  # Initial state: [x, x_dot, x_ddot, theta, theta_dot, theta_ddot]
 
-gravity = 9.8125  # gravitational acceleration (m/s^2)
+gravity = 9.80665  # gravitational acceleration (m/s^2)
 dt = 1/f
 
 # Initialize inverted pendulum model
@@ -263,7 +263,7 @@ while running:
         """
         Controller Update
         """
-        u = controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[4], theta_ddot=state[5], theta_d=pendulum_d, x=state[0], x_d=cart_d)
+        # u = controller.update_controller(e=pendulum_e, e_d=energy_d, theta=pendulum_angle, theta_dot=state[4], theta_ddot=state[5], theta_d=pendulum_d, x=state[0], x_d=cart_d)
        
         """
         Model Update
