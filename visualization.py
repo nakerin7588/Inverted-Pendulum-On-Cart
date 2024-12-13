@@ -290,6 +290,9 @@ while running:
         # Update simulation time
         current_time += dt
         
+        # if (current_time  >= 10.0):
+        #     sim_state = 0
+        
     """
     Simulation update
     """
@@ -331,7 +334,7 @@ while running:
     start_button.draw(screen)
     stop_button.draw(screen)
     reset_button.draw(screen)
-
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False

@@ -130,7 +130,17 @@ Controller desire step:
 
 ## 4. Simulation
 
+1. Start simulation
 
+<p align="center"><img src="Images/GIFstart.gif" alt="/GIFstart" /></p>
+
+2. Stop/Pause simulation
+
+<p align="center"><img src="Images/GIFstop.gif" alt="GIFstop" /></p>
+
+3. Reset simulation
+
+<p align="center"><img src="Images/GIFreset.gif" alt="GIFreset" /></p>
 
 # Chapter 4 : Results and Analysis
 ## 4.1 Overview
@@ -154,9 +164,11 @@ Both Matlab and Python simulations were run with the following parameters:
 
 ## 4.4 Results from Simulation
 
-<div align="center"><img src="Images/runSim_Kine.gif" alt="runSim_Kine" /></div>
+<div align="center"><img src="Images/10.0_sim.png" alt="runSim_Kine" /></div>
 
-- Simulation visualized the pendulum’s motion effectively, though with slightly reduced accuracy compared to Matlab.
+Graph from simulation:
+
+<div align="center"><img src="Images/graph_sim.png" alt="runSim_Kine" /></div>
 
 # Chapter 5 : Summary
 
