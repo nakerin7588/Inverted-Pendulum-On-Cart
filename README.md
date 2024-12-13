@@ -1,4 +1,4 @@
-# Inverted-Pendulum-On-Cart
+# Chapter 1 : Inverted-Pendulum-On-Cart
 This final project is in FRA333(Kinematics of Robotics System) This project exprain process of Inverted-Pendulum-On-Cart. By using simulation from PyGame.
 
 <p align="center"><img src="Images/init_simulation.png" alt="initial simulation" /></p>
@@ -10,7 +10,7 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
     - *Stabilized* : Implementation of a PID controller to keep the pendulum stabilized in the upright position.
 - **Simulation** : A simulation to visualize the movement of the cart and pendulum and evaluate the performance of the controller.
 
-# Concepts and Theories
+# Chapter 2 : Concepts and Theories
 
 1. **Inverted Pendulum on Cart**
 
@@ -96,36 +96,82 @@ $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
     - Phases 2 Remove Energy if $E>E_d$
     - Get $u = \text{sat}_{u_{\text{max}}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$
 
+
     In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
 
-# Methodology
+# Chapter 3 : Methodology
 
-## 1. System Diagram
+### 1. System Diagram
 
 After we done research about dynamics of inverted pendulum and control strategy. We considerated to create our system diagram to guide us to complete our project.
 
 <p align="center"><img src="Images/SystemDiagram.png" alt="system diagram" /></p>
 
-## 2. Modeling for simulation
+### 2. Modeling for simulation
 
 From dynamics model that we got. We have create the model that simulate with python by using dynamics & kinematic model of inverted pendulum on cart.
 
 <p align="center"><img src="Images/OnlyDynamics.gif" alt="system diagram" /></p>
 
-## 3. Controller design
+### 3. Controller design
 
 
 
-## 4. Simulation
+### 4. Simulation
+
+
+# Chapter 4 : Results and Analysis
+### 4.1 Overview
+This chapter presents the results of the simulation and its comparison with theoretical results calculated using Matlab. The goal is to validate the accuracy of the simulation by analyzing the consistency of the results.
+
+### 4.2 Simulation Setup
+Both Matlab and Python simulations were run with the following parameters:
+- **Cart Mass (\(M\))**: 1.0 kg
+- **Pendulum Mass (\(m\))**: 0.1 kg
+- **Pendulum Length (\(l\))**: 1.0 m
+- **Gravitational Acceleration (\(g\))**: 9.8 m/s²
+- **Control Parameters**: \(K_p = 10\), \(K_i = 0.5\), \(K_d = 2\)
+- **Simulation Time (\(T\))**: 10 s
+
+### 4.3 Results from Matlab
+
+-----รูป----
+- Matlab provided highly accurate results for swing-up and stabilization phases, with faster settling time and lower overshoot.
+
+### 4.4 Results from Simulation
+<div align="center">
+  <img src="Images/runSim_Kine.gif" alt="runSim_Kine" />
+</div>
+- Simulation visualized the pendulum’s motion effectively, though with slightly reduced accuracy compared to Matlab.
+
+# Chapter 5 : Summary
+This project successfully simulated and controlled the **Inverted Pendulum on a Cart** system, addressing the challenges of swing-up and stabilization. The outcomes from the Python simulation were validated against Matlab results, providing confidence in the correctness and performance of the system.
+
+### Key Insights
+1. **Swing-Up Control**: 
+   - Both Matlab and Python effectively transitioned the pendulum from the downward to the upright position.
+   - Matlab demonstrated a smoother and faster swing-up trajectory due to precise numerical solvers.
+2. **Stabilization Control**: 
+   - The PID controller maintained the pendulum in the upright position with acceptable performance in both platforms.
+   - Matlab showed superior stabilization with faster settling time and minimal overshoot.
+3. **Validation with Matlab**: 
+   - Python’s results closely aligned with Matlab, confirming the theoretical correctness of the Python simulation.
+
+### Practical Implications
+1. **Matlab** : Demonstrated high numerical accuracy, making it ideal for theoretical validation, detailed control design, and handling edge cases or extreme initial conditions.
+
+2. **Python (Pygame)** :
+Provided an interactive, real-time visualization tool, making it  for educational purposes and intuitive understanding of system dynamics.
+Despite slightly reduced accuracy compared to Matlab, Python’s implementation proved effective in demonstrating real-world system behavior.
 
 # Usage
 
-## Dependencies
+### Dependencies
 To use this project. You need to have all of dependencies for this project.
 
 ⚠️**warning**: Make sure you have python version > 3.10 already.
 
-## Installation
+### Installation
 
 1. Clone this repository
 
@@ -146,11 +192,9 @@ To use this project. You need to have all of dependencies for this project.
     python3 .\visualization.py
     ```
 
-## Simulation's features
+### Simulation's features
 
-<div align="center">
-  <img src="Images/runSim_Kine.gif" alt="runSim_Kine" />
-</div>
+<p align="center"><img src="Images/Result.png" alt="system diagram" /></p>
 
 * **Start Simulation**
     
