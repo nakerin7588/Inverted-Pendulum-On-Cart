@@ -57,7 +57,7 @@ $$V = m g l \cos(\theta)$$
 
 - So Lagrangian of the system :
     
-    $$L = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2 - m g l \cos(\theta)$$
+$$L = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2 - m g l \cos(\theta)$$
 
 - Summary 
     - Equation of Motion for the Cart :
@@ -73,23 +73,23 @@ $$V = m g l \cos(\theta)$$
 This focuses on adjusting the energy of the system to control its dynamics.
 - Nonlinear Equations in Terms of Force :
     
-    $$F = (M + m \sin^2(\theta)) \ddot{x} - m l \dot{\theta}^2 \sin(\theta) + m g \cos(\theta) \sin(\theta)$$
+$$F = (M + m \sin^2(\theta)) \ddot{x} - m l \dot{\theta}^2 \sin(\theta) + m g \cos(\theta) \sin(\theta)$$
 
 - Control Law (Energy-Based Control) :
     
-    $$u = \ddot{x}$$
+$$u = \ddot{x}$$
 
 - Total Energy of the Pendulum :
     
-    $$E = \frac{1}{2} m l^2 \dot{\theta}^2 + m g l (1 + \cos(\theta))$$
+$$E = \frac{1}{2} m l^2 \dot{\theta}^2 + m g l (1 + \cos(\theta))$$
 
 - Energy Required to Reach the Equilibrium
     
-    $$E_d = m g l (1 + \cos(0)) = 2 m g l$$
+$$E_d = m g l (1 + \cos(0)) = 2 m g l$$
 
 - Controller Design
     
-    $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
+$$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
 
 - The controller design is divided into 2 phases
     - Phases 1 add Energy if $E<E_d$
