@@ -3,7 +3,7 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 <p align="center"><img src="Images/init_simulation.png" alt="initial simulation" /></p>
 
-### Key components of the project include:
+## Key components of the project include:
 - **Modeling** : Dynamics model of the cart-pendulum system.
 - **Controller** : 
     - *Swing-up Controller* : A control strategy applied at the start to add energy to the pendulum, enabling it to swing from the downward position to the upright position.
@@ -101,63 +101,73 @@ $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
 
 # Chapter 3 : Methodology
 
-### 1. System Diagram
+## 1. System Diagram
 
 After we done research about dynamics of inverted pendulum and control strategy. We considerated to create our system diagram to guide us to complete our project.
 
 <p align="center"><img src="Images/SystemDiagram.png" alt="system diagram" /></p>
 
-### 2. Modeling for simulation
+## 2. Modeling for simulation
 
 From dynamics model that we got. We have create the model that simulate with python by using dynamics & kinematic model of inverted pendulum on cart.
 
 <p align="center"><img src="Images/OnlyDynamics.gif" alt="system diagram" /></p>
 
-### 3. Controller design
+## 3. Controller design
 
+After we got dynamics simulation of our inverted pendulum on cart. We decided to desire controller of our project that reference from system diagram.
 
-
-### 4. Simulation
+## 4. Simulation
 
 
 # Chapter 4 : Results and Analysis
-### 4.1 Overview
+## 4.1 Overview
+
 This chapter presents the results of the simulation and its comparison with theoretical results calculated using Matlab. The goal is to validate the accuracy of the simulation by analyzing the consistency of the results.
 
-### 4.2 Simulation Setup
+## 4.2 Simulation Setup
+
 Both Matlab and Python simulations were run with the following parameters:
-- **Cart Mass (\(M\))**: 1.0 kg
+
+- **Cart Mass (\(M\))**: 0.135 kg
 - **Pendulum Mass (\(m\))**: 0.1 kg
-- **Pendulum Length (\(l\))**: 1.0 m
-- **Gravitational Acceleration (\(g\))**: 9.8 m/s²
-- **Control Parameters**: \(K_p = 10\), \(K_i = 0.5\), \(K_d = 2\)
+- **Pendulum Length (\(l\))**: 0.5 m
+- **Gravitational Acceleration (\(g\))**: 9.80665 m/s²
 - **Simulation Time (\(T\))**: 10 s
 
-### 4.3 Results from Matlab
+## 4.3 Results from Matlab
 
 -----รูป----
 - Matlab provided highly accurate results for swing-up and stabilization phases, with faster settling time and lower overshoot.
 
-### 4.4 Results from Simulation
+## 4.4 Results from Simulation
+
 <div align="center">
   <img src="Images/runSim_Kine.gif" alt="runSim_Kine" />
 </div>
+
 - Simulation visualized the pendulum’s motion effectively, though with slightly reduced accuracy compared to Matlab.
 
 # Chapter 5 : Summary
 This project successfully simulated and controlled the **Inverted Pendulum on a Cart** system, addressing the challenges of swing-up and stabilization. The outcomes from the Python simulation were validated against Matlab results, providing confidence in the correctness and performance of the system.
 
-### Key Insights
+## Key Insights
 1. **Swing-Up Control**: 
+
    - Both Matlab and Python effectively transitioned the pendulum from the downward to the upright position.
    - Matlab demonstrated a smoother and faster swing-up trajectory due to precise numerical solvers.
-2. **Stabilization Control**: 
+
+2. **Stabilization Control**:
+
    - The PID controller maintained the pendulum in the upright position with acceptable performance in both platforms.
    - Matlab showed superior stabilization with faster settling time and minimal overshoot.
+
 3. **Validation with Matlab**: 
+
    - Python’s results closely aligned with Matlab, confirming the theoretical correctness of the Python simulation.
 
-### Practical Implications
+## Practical Implications
+
 1. **Matlab** : Demonstrated high numerical accuracy, making it ideal for theoretical validation, detailed control design, and handling edge cases or extreme initial conditions.
 
 2. **Python (Pygame)** :
@@ -166,12 +176,13 @@ Despite slightly reduced accuracy compared to Matlab, Python’s implementation 
 
 # Usage
 
-### Dependencies
+## Dependencies
+
 To use this project. You need to have all of dependencies for this project.
 
 ⚠️**warning**: Make sure you have python version > 3.10 already.
 
-### Installation
+## Installation
 
 1. Clone this repository
 
@@ -192,7 +203,7 @@ To use this project. You need to have all of dependencies for this project.
     python3 .\visualization.py
     ```
 
-### Simulation's features
+## Simulation's features
 
 <p align="center"><img src="Images/Result.png" alt="system diagram" /></p>
 
@@ -213,6 +224,9 @@ To use this project. You need to have all of dependencies for this project.
 # References
 
 - [INVERTED PENDULUM (Model Based Control Design for Swing-up & Balance the Inverted Pendulum)](https://drive.google.com/file/d/1W2v3wKXBVW4FohB33kTv8iBEiOFgoS8d/view)
+
 - [Swing-up Control of an Inverted Pendulum by Energy-Based Methods](https://www.researchgate.net/publication/3811174_Swing-up_Control_of_an_Inverted_Pendulum_by_Energy-Based_Methods)
+
 - [Cart-pole system : Equations of motion](https://courses.ece.ucsb.edu/ECE594/594D_W10Byl/hw/cartpole_eom.pdf)
+
 - [NON-LINEAR SWING-UP AND STABILIZING CONTROL OF AN INVERTED PENDULUM SYSTEM](https://ieeer8.org/wp-content/uploads/downloads/2011/12/bugeja.pdf)
