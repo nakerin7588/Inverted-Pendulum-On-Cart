@@ -98,7 +98,6 @@ $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
     
     $$u = sat_{u_{max}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$$
 
-
     In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
 
 # Chapter 3 : Methodology
