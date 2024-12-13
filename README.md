@@ -31,10 +31,13 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 -  Kinematic equation of Inverted pendulum on cart
 
-    $$x_m = x + l \sin(\theta)$$
-    $$\dot{x_m} = \dot{x} + l \dot{\theta} \cos(\theta)$$
-    $$y_m = l \cos(\theta)$$
-    $$\dot{y_m} = -l \dot{\theta} \sin(\theta)$$
+$$x_m = x + l \sin(\theta)$$
+
+$$\dot{x_m} = \dot{x} + l \dot{\theta} \cos(\theta)$$
+
+$$y_m = l \cos(\theta)$$
+
+$$\dot{y_m} = -l \dot{\theta} \sin(\theta)$$
 
 - Calculate Dynamics equation by Lagrangian
 
@@ -46,11 +49,11 @@ This final project is in FRA333(Kinematics of Robotics System) This project expr
 
 - The total kinetic energy of the system :
 
-    $$T = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2$$
+$$T = \frac{1}{2} (M + m) \dot{x}^2 + m l \dot{x} \dot{\theta} \cos(\theta) + \frac{1}{2} m l^2 \dot{\theta}^2$$
 
 - The potential energy of the system :
     
-    $$V = m g l \cos(\theta)$$
+$$V = m g l \cos(\theta)$$
 
 - So Lagrangian of the system :
     
