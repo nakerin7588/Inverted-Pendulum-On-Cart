@@ -94,7 +94,9 @@ $$u = k \dot{\theta} \cos(\theta) \tilde{E}, \quad k > 0$$
 - The controller design is divided into 2 phases
     - Phases 1 add Energy if $E<E_d$
     - Phases 2 Remove Energy if $E>E_d$
-    - Get $u = sat_{u_{max}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$
+    - Get 
+    
+    $$u = sat_{u_{max}} \left( k(E - E_d) \text{Sign}(\dot{\theta} \cos(\theta)) \right)$$
 
 
     In this equation $u = \ddot{x}$ , But this system is controlled by force, so we need to calculate backwards to convert the control input into force for control the cart.
