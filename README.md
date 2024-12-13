@@ -159,8 +159,15 @@ Both Matlab and Python simulations were run with the following parameters:
 
 ## 4.3 Results from Matlab
 
------รูป----
-- Matlab provided highly accurate results for swing-up and stabilization phases, with faster settling time and lower overshoot.
+<div align="center"><img src="Images/matlab.png" alt="runSim_Kine" /></div>
+
+Graph from matlab:
+
+1. Position of cart
+<div align="center"><img src="Images/cart_mat.png" alt="runSim_Kine" /></div>
+
+2. Angular of pendulum
+<div align="center"><img src="Images/Angula_mat.png" alt="runSim_Kine" /></div>
 
 ## 4.4 Results from Simulation
 
